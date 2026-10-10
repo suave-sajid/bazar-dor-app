@@ -1,0 +1,40 @@
+"use client"
+
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import AuthButtons from "./AuthButtons";
+
+export default function Header() {
+  
+
+  const [localTime, setLocalTime] = useState("");
+
+  useEffect(() => {
+    const formatted = new Date().toLocaleDateString("bn-BD", {
+      timeZone: "Asia/Dhaka",
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+    setLocalTime(formatted);
+  }, []);
+
+  return (
+    <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white shadow-sm">
+      <div className="mx-auto flex max-w-6xl items-center justify-between  px-4 py-2">
+        {/* Left: Logo + Title */}
+        <div className="flex items-center gap-3">
+          <img src="/logo-icon.png" alt="Logo" className="h-8 w-8 object-contain " />
+          <div className="leading-tight">
+            <h1 className="text-lg font-bold text-gray-900">বাজার দর</h1>
+            <p className="text-xs text-gray-500">{localTime}</p>
+          </div>
+        </div>
+
+        {/* Right: Auth buttons */}
+        <AuthButtons />
+      </div>
+    </nav>
+  );
+}
